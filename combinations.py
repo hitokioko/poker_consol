@@ -1,4 +1,6 @@
 import json
+from xor import xor
+import collections
 
 def load_comb():
     global cardTest
@@ -14,12 +16,11 @@ for i in cardTest[KEY]:
         # print(j)
         main_arr_test.append(j)
 
-def xor(str1, str2):
-    return bool(str1) != bool(str2)
+
 
 EXAMPLE_TABLE = main_arr_test[3] #[['pika', 'J'], ['cherv', '3'], ['cherv', '5'], ['pika', '7'], ['pika', 'T'], ['krest', '7'], ['buba', '6']]
 # EXAMPLE_TABLE[2][1] = 'J'
-EXAMPLE_TABLE_2 = [['pika', '3'], ['cherv', '3'], ['cherv', '3'], ['pika', '5'], ['pika', 'T'], ['krest', '7'], ['buba', '6']]
+EXAMPLE_TABLE_2 = [['pika', '3'], ['cherv', '3'], ['cherv', '2'], ['pika', '3'], ['pika', '5'], ['krest', '7'], ['buba', '6']]
 
 
 # вернет true если в массиве есть одинаковые значения
@@ -58,12 +59,28 @@ def two_pars (hand_and_table):
     return False 
 
 
+def cards_set(hand_and_table):
+    cards_count = 0
+    arr = []
+    for s in hand_and_table:
+        arr.append(s[1]) #добавление в массив значений
+    ss = 0
+    finded_para = 0
+    count_elem = collections.Counter(arr)
+    # print(count_elem)
+    for i in count_elem:
+        if count_elem[str(i)] == 3:
+            return True
+
+
 for tbl in main_arr_test: # прогоняем тесты
-    print(two_pars(tbl))
-    print(tbl)
-    # pass
+    if cards_set(tbl):
+        print(tbl)
+        print(True)
 
 
-print(two_pars(EXAMPLE_TABLE_2))
-print (EXAMPLE_TABLE_2)
+
+# print (EXAMPLE_TABLE_2)
+# print(cards_set(EXAMPLE_TABLE_2))
+
 
