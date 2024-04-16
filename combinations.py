@@ -59,7 +59,7 @@ def two_pars (hand_and_table):
     return False 
 
 
-def cards_set(hand_and_table):
+def cards_set(hand_and_table, kareOrSet='set'):
     cards_count = 0
     arr = []
     for s in hand_and_table:
@@ -68,8 +68,9 @@ def cards_set(hand_and_table):
     finded_para = 0
     count_elem = collections.Counter(arr)
     # print(count_elem)
+    kareOrSet = 4 if kareOrSet == 'kare' else 3
     for i in count_elem:
-        if count_elem[str(i)] == 3:
+        if count_elem[str(i)] == kareOrSet:
             return True
 
 
@@ -110,15 +111,16 @@ def straight(hand_and_table):
     # print(sort_arr)
     # print(f'card_count: {cards_count}')
     if cards_count > 4:
-        print(sort_arr)
-        print(f'card_count: {cards_count}')
+        # print(sort_arr)
+        # print(f'card_count: {cards_count}')
         return True
     return False
     # return sort_arr
 
 
+
 for tbl in main_arr_test: # прогоняем тесты
-    if straight(tbl):
+    if cards_set(tbl,'kare'):
         print(tbl)
         print(True)
 
