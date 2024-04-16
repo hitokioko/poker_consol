@@ -59,7 +59,7 @@ def two_pars (hand_and_table):
     return False 
 
 
-def cards_set(hand_and_table, kareOrSet='set'):
+def cards_set(hand_and_table, kareOrSet='set'): #эта функция используеться также для нахождения каре при передачи вторым параметром строки каре
     cards_count = 0
     arr = []
     for s in hand_and_table:
