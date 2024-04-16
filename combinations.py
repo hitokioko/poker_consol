@@ -20,7 +20,7 @@ for i in cardTest[KEY]:
 
 EXAMPLE_TABLE = main_arr_test[3] #[['pika', 'J'], ['cherv', '3'], ['cherv', '5'], ['pika', '7'], ['pika', 'T'], ['krest', '7'], ['buba', '6']]
 # EXAMPLE_TABLE[2][1] = 'J'
-EXAMPLE_TABLE_2 = [['pika', '3'], ['cherv', '3'], ['cherv', '2'], ['pika', '3'], ['pika', '5'], ['krest', '7'], ['buba', '6']]
+EXAMPLE_TABLE_2 = [['pika', '3'], ['cherv', '5'], ['cherv', '3'], ['pika', '8'], ['pika', '4'], ['krest', '7'], ['buba', '6']]
 
 
 # вернет true если в массиве есть одинаковые значения
@@ -73,14 +73,58 @@ def cards_set(hand_and_table):
             return True
 
 
+def straight(hand_and_table):
+    # pass
+    cards_count = 0
+    arr = []
+
+    def find_joker(card):
+        if card == 'J':
+            return '11'
+        elif card == 'Q':
+            return '12'
+        elif card == 'K':
+            return '13'
+        elif card == 'T':
+            return '14'
+        else:
+            return False
+
+    for s in hand_and_table:
+        arr.append(s[1]) #добавление в массив значений
+    for i in range(len(arr)):
+        # print(arr[i])
+        if find_joker(arr[i]):
+            arr[i] = find_joker(arr[i])
+    for j in range(0,len(arr)):
+        arr[j] = int(arr[j])
+    sort_arr = sorted(arr)
+    for k in range(len(sort_arr)):
+        if k == len(arr)-1:
+            cards_count +=1
+            break
+        if (sort_arr[k]) == (sort_arr[k+1]-1):
+            cards_count +=1
+        else:
+            cards_count = 0
+    # print(sort_arr)
+    # print(f'card_count: {cards_count}')
+    if cards_count > 4:
+        print(sort_arr)
+        print(f'card_count: {cards_count}')
+        return True
+    return False
+    # return sort_arr
+
+
 for tbl in main_arr_test: # прогоняем тесты
-    if cards_set(tbl):
+    if straight(tbl):
         print(tbl)
         print(True)
 
 
 
 # print (EXAMPLE_TABLE_2)
-# print(cards_set(EXAMPLE_TABLE_2))
+# print(straight(EXAMPLE_TABLE_2))
 
 
