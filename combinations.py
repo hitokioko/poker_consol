@@ -20,7 +20,7 @@ for i in cardTest[KEY]:
 
 EXAMPLE_TABLE = main_arr_test[3] #[['pika', 'J'], ['cherv', '3'], ['cherv', '5'], ['pika', '7'], ['pika', 'T'], ['krest', '7'], ['buba', '6']]
 # EXAMPLE_TABLE[2][1] = 'J'
-EXAMPLE_TABLE_2 = [['pika', '3'], ['pika', '3'], ['pika', '3'], ['pika', '8'], ['pika', '8'], ['krest', '7'], ['buba', '6']]
+EXAMPLE_TABLE_2 = [['pika', '10'], ['pika', 'J'], ['pika', 'K'], ['pika', 'Q'], ['pika', 'T'], ['krest', '7'], ['buba', '6']]
 
 
 # вернет true если в массиве есть одинаковые значения
@@ -76,7 +76,7 @@ def cards_set(hand_and_table, kareOrSet='set'): #эта функция испо�
     return False
 
 
-def straight(hand_and_table):
+def straight(hand_and_table, sf='straight'):
     # pass
     cards_count = 0
     arr = []
@@ -115,12 +115,14 @@ def straight(hand_and_table):
     if cards_count > 4:
         # print(sort_arr)
         # print(f'card_count: {cards_count}')
+        if sf != straight:
+            return sort_arr
         return True
     return False
     # return sort_arr
 
 
-def flush(hand_and_table):
+def flush(hand_and_table, sf='flush'):
     cards_count = 0
     arr = []
     for s in hand_and_table:
@@ -130,6 +132,9 @@ def flush(hand_and_table):
     for m, v in count_elem.items():
         # print (v)
         if count_elem[m] > 4:
+            if sf != flush:
+                arr.append(m)
+                return arr
             # print (count_elem)
             return True
     return False
@@ -138,6 +143,7 @@ def flush(hand_and_table):
 def full_haus(hand_and_table):
     cards_count = 0
     arr = []
+    arr 
     for s in hand_and_table:
         arr.append(s[1]) #добавление в массив значений
     count_elem = collections.Counter(arr)
@@ -152,14 +158,37 @@ def full_haus(hand_and_table):
             return True
     return False
 
-for tbl in main_arr_test: # прогоняем тесты
-    if full_haus(tbl):
-        print(tbl)
-        print(True)
+
+def straight_flush(hand_and_table):
+    if flush(hand_and_table):
+        mast_arr = flush(hand_and_table,'zxc')
+        main_mast = mast_arr[-1]
+        mast_arr.pop(-1)
+        i = 0
+        while i < len(hand_and_table):
+            if hand_and_table[i][0] != main_mast:
+                hand_and_table.pop(i)
+                i -= 1
+            i+=1
+        if straight(hand_and_table):
+            return True
+    return False
+
+
+def flush_royal(hand_and_table):
+    if straight_flush(hand_and_table) and straight(hand_and_table, 'zxc')[0] == 10:
+        return True
+    return False
+
+
+# for tbl in main_arr_test: # прогоняем тесты
+#     if full_haus(tbl):
+#         print(tbl)
+#         print(True)
 
 
 
-# print (EXAMPLE_TABLE_2)
-# print(full_haus(EXAMPLE_TABLE_2))
+print (EXAMPLE_TABLE_2)
+print(flush_royal(EXAMPLE_TABLE_2))
 
 
