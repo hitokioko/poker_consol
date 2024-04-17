@@ -2,25 +2,31 @@ import json
 from xor import xor
 import collections
 
-def load_comb():
+def load_comb(name):
     global cardTest
-    with open('combination_test.json', 'r') as f:
+    with open(name, 'r') as f:
         cardTest = json.load(f)
 
-load_comb()
-KEY = 'data'
-main_arr_test = []
-for i in cardTest[KEY]:
-    # print(i)
-    for j in i:
-        # print(j)
-        main_arr_test.append(j)
+load_comb('combination_test.json')
 
+def unpack_json(js,test):
+    # if js != "not js":
+        #  load_comb('combination_test.json')
+    KEY = 'data'
+    main_arr_test = []
+    for i in test[KEY]:
+        # print(i)
+        for j in i:
+            # print(j)
+            main_arr_test.append(j)
+    return main_arr_test
+
+main_arr_test = unpack_json('not js', cardTest)
 
 
 EXAMPLE_TABLE = main_arr_test[3] #[['pika', 'J'], ['cherv', '3'], ['cherv', '5'], ['pika', '7'], ['pika', 'T'], ['krest', '7'], ['buba', '6']]
 # EXAMPLE_TABLE[2][1] = 'J'
-EXAMPLE_TABLE_2 = [['pika', '10'], ['pika', 'J'], ['pika', 'K'], ['pika', 'Q'], ['pika', 'T'], ['krest', '7'], ['buba', '6']]
+EXAMPLE_TABLE_2 = [['krest', '10'], ['pika', 'T'], ['cherv', 'K'], ['krest', '6'], ['buba', '8'], ['krest', 'Q'], ['pika', 'J']]
 
 
 # вернет true если в массиве есть одинаковые значения
@@ -112,11 +118,11 @@ def straight(hand_and_table, sf='straight'):
             cards_count = 0
     # print(sort_arr)
     # print(f'card_count: {cards_count}')
+    if sf != "straight":
+        return sort_arr
     if cards_count > 4:
         # print(sort_arr)
         # print(f'card_count: {cards_count}')
-        if sf != straight:
-            return sort_arr
         return True
     return False
     # return sort_arr
@@ -173,7 +179,7 @@ def straight_flush(hand_and_table):
         if straight(hand_and_table):
             return True
     return False
-
+# удаляет другие масти (надо пофиксить)
 
 def flush_royal(hand_and_table):
     if straight_flush(hand_and_table) and straight(hand_and_table, 'zxc')[0] == 10:
@@ -182,13 +188,13 @@ def flush_royal(hand_and_table):
 
 
 # for tbl in main_arr_test: # прогоняем тесты
-#     if full_haus(tbl):
-#         print(tbl)
-#         print(True)
+#     print(tbl)
+#     print(f'para: {para(tbl)}\n two_pars: {two_pars(tbl)}\n set: {cards_set(tbl)}\n straight: {straight(tbl)}\n flush: {flush(tbl)}\n full_haus: {full_haus(tbl)}\n kare: {cards_set(tbl, 'kare')}\n straight_flush: {straight_flush(tbl)}\n flush_royal: {flush_royal(tbl)}')
 
 
 
-print (EXAMPLE_TABLE_2)
-print(flush_royal(EXAMPLE_TABLE_2))
+
+# print (EXAMPLE_TABLE_2)
+# print(straight(EXAMPLE_TABLE_2))
 
 

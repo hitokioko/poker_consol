@@ -1,7 +1,7 @@
 import random
 import json
-
-
+from combinations import unpack_json, cards_set,flush_royal
+'combination_test.json'
 # cards = {}
 masts = ["krest", "cherv", "buba", "pika"]
 chisla = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "T"]
@@ -63,22 +63,33 @@ enter() #переменную cards необходимо обязательно 
 
 # // надо
 
-def set_json_comb_test ():
-    with open('combination_test.json','w') as file:
-        test = {"data":0}
-        fin_arr = []
-        for j in range(1000):
-            enter()
-            arr = []
-            data = pick_cards(cards,7)
+def set_json_comb_test (rng,wrt = False):
+    if wrt:
+        with open('combination_test.json','w') as file:
+            set_json_comb_test(rng)
+    test = {"data":0}
+    fin_arr = []
+    for j in range(rng):
+        enter()
+        arr = []
+        data = pick_cards(cards,7)
         # print('a')
-            arr.append(data)
-            fin_arr.append(arr)
-            arr = []
+        arr.append(data)
+        fin_arr.append(arr)
+        arr = []
         test["data"] = fin_arr
-        json.dump(test,file)
+        # json.dump(test,file)
+        # return(unpack_json('not js',test))
+    return test
 
-set_json_comb_test()
+zxc = 0
+# print(unpack_json('not js',set_json_comb_test(rng=1000)))
+for z in unpack_json('not js',set_json_comb_test(rng=10000000)):
+    zxc += 1
+    if flush_royal(z):
+        print(z)
+        print(zxc)
+        break
 # P1 = Player()
 # P2 = Player()
 # P1.hand = pick_cards(cards, 2)
