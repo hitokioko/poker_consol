@@ -20,7 +20,7 @@ for i in cardTest[KEY]:
 
 EXAMPLE_TABLE = main_arr_test[3] #[['pika', 'J'], ['cherv', '3'], ['cherv', '5'], ['pika', '7'], ['pika', 'T'], ['krest', '7'], ['buba', '6']]
 # EXAMPLE_TABLE[2][1] = 'J'
-EXAMPLE_TABLE_2 = [['pika', '3'], ['cherv', '5'], ['cherv', '3'], ['pika', '8'], ['pika', '4'], ['krest', '7'], ['buba', '6']]
+EXAMPLE_TABLE_2 = [['pika', '3'], ['pika', '3'], ['pika', '3'], ['pika', '8'], ['pika', '8'], ['krest', '7'], ['buba', '6']]
 
 
 # вернет true если в массиве есть одинаковые значения
@@ -73,6 +73,8 @@ def cards_set(hand_and_table, kareOrSet='set'): #эта функция испо�
         if count_elem[str(i)] == kareOrSet:
             return True
 
+    return False
+
 
 def straight(hand_and_table):
     # pass
@@ -118,15 +120,46 @@ def straight(hand_and_table):
     # return sort_arr
 
 
+def flush(hand_and_table):
+    cards_count = 0
+    arr = []
+    for s in hand_and_table:
+        arr.append(s[0]) #добавление в массив мастей
+    count_elem = collections.Counter(arr)
+
+    for m, v in count_elem.items():
+        # print (v)
+        if count_elem[m] > 4:
+            # print (count_elem)
+            return True
+    return False
+
+
+def full_haus(hand_and_table):
+    cards_count = 0
+    arr = []
+    for s in hand_and_table:
+        arr.append(s[1]) #добавление в массив значений
+    count_elem = collections.Counter(arr)
+    # print(count_elem)
+    # print(count_elem)
+    for i in count_elem:
+        # print(i)
+        if count_elem[str(i)] == 3 or (cards_count > 0 and count_elem[str(i)] > 2):
+            cards_count +=1
+            # print(count_elem)
+        if cards_count > 1:
+            return True
+    return False
 
 for tbl in main_arr_test: # прогоняем тесты
-    if cards_set(tbl,'kare'):
+    if full_haus(tbl):
         print(tbl)
         print(True)
 
 
 
 # print (EXAMPLE_TABLE_2)
-# print(straight(EXAMPLE_TABLE_2))
+# print(full_haus(EXAMPLE_TABLE_2))
 
 
